@@ -17,20 +17,27 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String description;
     private String imgUrl;
     private Double price;
 
-    @Transient
+
+    @ManyToMany
+    @JoinTable(name = "tb_products_category",
+            joinColumns = @JoinColumn(name = "product_i"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")) // fosse na class Category, aqui seria product_id
+
     private Set<Category> categories = new HashSet<>();
 
     public Product() {
     }
 
-    public Product(Long id, String name, String imgUrl, Double price) {
+    public Product(Long id, String name, String description, Double price, String imgUrl) {
         this.id = id;
         this.name = name;
-        this.imgUrl = imgUrl;
+        this.description = description;
         this.price = price;
+        this.imgUrl = imgUrl;
     }
 
     public Long getId() {
@@ -49,12 +56,12 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public Double getPrice() {
-        return price;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getImgUrl() {
@@ -65,8 +72,16 @@ public class Product implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
     }
 
     @Override
