@@ -1,5 +1,6 @@
 package com.josev001.WorkShop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.josev001.WorkShop.entities.pk.OrderItemPk;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -14,7 +15,7 @@ public class OrderItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    private OrderItemPk id;
+    private OrderItemPk id = new OrderItemPk(); // tem que ser instanciada
 
     private Integer quantity;
     private Double price;
@@ -30,19 +31,20 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
-    public Order getOrder(){
+    @JsonIgnore
+    public Order getOrder() {
         return id.getOrder();
     }
 
-    public void setOrder(Order order){
+    public void setOrder(Order order) {
         id.setOrder(order);
     }
 
-    public Product getProduct(){
+    public Product getProduct() {
         return id.getProduct();
     }
 
-    public void setProduct(Product product){
+    public void setProduct(Product product) {
         id.setProduct(product);
     }
 
