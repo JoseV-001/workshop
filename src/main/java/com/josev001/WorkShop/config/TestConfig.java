@@ -1,8 +1,10 @@
 package com.josev001.WorkShop.config;
 
+import com.josev001.WorkShop.entities.Category;
 import com.josev001.WorkShop.entities.Order;
 import com.josev001.WorkShop.entities.User;
 import com.josev001.WorkShop.entities.enums.OrderStatus;
+import com.josev001.WorkShop.repositories.CategoryRepository;
 import com.josev001.WorkShop.repositories.OrderRepository;
 import com.josev001.WorkShop.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,18 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 
         User u1 = new User(null, "Jose", "jose@gmail.com", "988888888", "123456");
         User u2 = new User(null, "Cristovao", "cristovao@gmail.com", "977777777", "123456");
