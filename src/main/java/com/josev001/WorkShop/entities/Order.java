@@ -1,7 +1,6 @@
 package com.josev001.WorkShop.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.josev001.WorkShop.entities.enums.OrderStatus;
 import jakarta.persistence.*;
 
@@ -33,6 +32,9 @@ public class Order implements Serializable {
 
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL) // quando for 1 pra 1
+    private Payment payment;
 
     public Order() {
 
@@ -79,7 +81,15 @@ public class Order implements Serializable {
         this.client = client;
     }
 
-    public Set<OrderItem> getItems(){
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    public Set<OrderItem> getItems() {
         return items;
     }
 
